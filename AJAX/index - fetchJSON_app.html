@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX JSON Data Fetching</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>AJAX Data Fetching</h2>
+    <button onclick="fetchJSON()">Fetch JSON Data</button>
+
+    <div id="json-container">
+        <h3>JSON Data (Students)</h3>
+        <table id="json-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>City</th>
+                </tr>
+            </thead>
+            <tbody id="json-body"></tbody>
+        </table>
+    </div>
+
+    <script src="fetchJSON_app.js"></script>
+</body>
+
+</html>

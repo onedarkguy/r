@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Alice",
+        "rollNo": 101,
+        "marks": 85
+    },
+    {
+        "name": "Bob",
+        "rollNo": 102,
+        "marks": 60
+    },
+    {
+        "name": "Charlie",
+        "rollNo": 103,
+        "marks": 92
+    },
+    {
+        "name": "David",
+        "rollNo": 104,
+        "marks": 45
+    },
+    {
+        "name": "Eve",
+        "rollNo": 105,
+        "marks": 78
+    }
+]

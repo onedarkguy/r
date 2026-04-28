@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX XML Data Fetching</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>AJAX Data Fetching</h2>
+    <button onclick="fetchXML()">Fetch XML Data</button>
+
+    <div id="xml-container">
+        <h3>XML Data (Students)</h3>
+        <table id="xml-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody id="xml-body"></tbody>
+        </table>
+    </div>
+
+    <script src="fetchXML_app.js"></script>
+</body>
+
+</html>

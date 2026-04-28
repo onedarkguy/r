@@ -1,0 +1,385 @@
+1-)Routing 
+app.jsx
+import {Routes,Route} from "react-router-dom";
+import Navbar from "./Components/Navbar";
+import Home from "./Components/Home";
+import About from "./Components/About";
+import Contact  from "./Components/Contact";
+import Register from "./Components/Register";
+import User from "./Components/User";
+function App(){
+  return(
+    <>
+    <h1>Practicing Route</h1>
+    <Navbar/>
+    <Routes>
+      <Route path="/" element={<Home/>} />
+      <Route path="/about" element={<About/>}/>
+      <Route path="/contact" element={<Contact/>}/>
+      <Route path="/register" element={<Register/>}/>
+      <Route path="/user/:username" element={<User/>}/>
+    </Routes>
+    </>
+  )
+}
+export default App;
+
+Reg Page 
+import { useState } from "react";
+
+function Register() {
+  const [data, setData] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setData({
+      ...data,
+      [name]: type === "checkbox" ? checked : value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Registration Successful!");
+  };
+
+  return (
+    <div>
+      <h1>Registration Form</h1>
+
+      <form onSubmit={handleSubmit}>
+        Username:
+        <input type="text" name="username" onChange={handleChange} />
+        <br /><br />
+
+        Password:
+        <input type="password" name="password" onChange={handleChange} />
+        <br /><br />
+
+        Email:
+        <input type="email" name="email" onChange={handleChange} />
+        <br /><br />
+
+        Gender:
+        <input type="radio" name="gender" value="Male" onChange={handleChange} /> Male
+        <input type="radio" name="gender" value="Female" onChange={handleChange} /> Female
+        <br /><br />
+
+        Skills:
+        <input type="checkbox" name="react" onChange={handleChange} /> React
+        <input type="checkbox" name="node" onChange={handleChange} /> Node
+        <br /><br />
+
+        Course:
+        <select name="course" onChange={handleChange}>
+          <option value="">Select</option>
+          <option value="BCA">BCA</option>
+          <option value="BTech">BTech</option>
+        </select>
+        <br /><br />
+
+        Address:
+        <textarea name="address" onChange={handleChange}></textarea>
+        <br /><br />
+
+        Upload Resume:
+        <input type="file" name="file" onChange={handleChange} />
+        <br /><br />
+
+        <button type="submit">Register</button>
+        <button type="reset">Reset</button>
+      </form>
+    </div>
+  );
+}
+
+export default Register;
+
+2-)Ajax(Json)
+// Practicing Json extrat (Ajex Part 1)
+
+import React, { useState } from "react";
+ const StudentData=[
+    {
+        id:1,
+        name:"john",
+        roll_no:"101",
+        sub:{
+            maths:85,
+            Science:85,
+            English:85
+        }
+    },
+    {
+        id:2,
+        name:"fread",
+        roll_no:"102",
+        sub:{
+            maths:95,
+            Science:85,
+            English:85
+        }
+    }
+ ]
+ const StudentsPage=()=>{
+    const [selectedStudentMath,setSelectedStudentMath]=useState(null);
+    // What is usestate explain me again in short
+    const extractMathMarks=(studentName)=>{
+        const student = StudentData.find(s=>s.name ===studentName);
+        // what is this S? Solve this letter
+        setSelectedStudentMath(student ? `${student.name}'s Math Marks: ${student.sub.maths}`:"");
+    };
+    return(
+        <>
+        <h1>Practicing Ajex</h1>
+        <div>
+            <h1>Student List</h1>
+            <table className="border border-black-400 w-full mb-4">
+                <thead>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Name</th>
+                        <th>Math</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {StudentData.map((student)=>(
+                        <tr key={student.id}>   
+                        {/* what does this id means? */}
+                        <td>{student.roll_no}</td>
+                        <td>{student.name}</td>
+                        <td>{student.sub.maths}</td>
+                        <td>
+                            <button onClick={()=>extractMathMarks(student.name)}>Extract</button>
+                        </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            {selectedStudentMath && <p>{selectedStudentMath}</p> }
+        </div>
+        </>
+    )
+ }
+ export default StudentsPage
+
+3-)Ajax(xml)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX XML Example</title>
+</head>
+<style>
+    table{
+        margin-top: 10px;
+        border-collapse: collapse;
+    }
+    th,td{
+        border: 1px solid ;
+        padding: 8px;
+    }
+</style>
+<body>
+    <h2>Ajax with XML (XMLHttpRequest)</h2>
+    <button onclick="loadXML()">Load XML Data</button>
+    <table id="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <script>
+        function loadXML(){
+            // Step1 : Create Object 
+            var xhr=new XMLHttpRequest();
+            // Step2: Initialize Request
+            xhr.open("GET",'data.xml',true);
+            // Step3: Handle Response
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState===4 && xhr.status===200){
+                    // Get XML data
+                    var xmlDoc=xhr.responseXML;
+                    var students=xmlDoc.getElementsByTagName("student");
+                    var tableBody=document.querySelector('#table tbody');
+                    tableBody.innerHTML=""
+                    // Explain me the meaning of of all variable xmldoc,students,tableBodty and why tableBoy.innerHtml="";(what does it mean and why )
+
+                    // Loop Through XML
+                    for(var i=0;i<students.length;i++){
+                        var name=students[i].getElementsByTagName("name")[0].textContent; //What does "[0]" means
+                        var age=students[i].getElementsByTagName('age')[0].textContent;
+                        var row="<tr><td>"+ name+ "</td><td>"+age+"</td></tr>";
+                        tableBody.innerHTML+=row;
+                    }
+                }
+            };
+            // Step4: Send Request
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
+<!-- Ajax Means Requesting Data from the server without reloading the page -->
+
+*-)
+import React, { useState } from "react";
+ 
+function Login() {
+ 
+ 
+  const users = [
+    { username: "admin", password: "1234" },
+    { username: "john", password: "abcd" },
+    { username: "sara", password: "pass123" }
+  ];
+ 
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+ 
+ 
+  const validateLogin = () => {
+ 
+    const user = users.find(
+      (u) => u.username === username && u.password === password
+    );
+ 
+    if (user) {
+      setMessage("Login Successful");
+    } else {
+      setMessage("Invalid Username or Password");
+    }
+  };
+ 
+  return (
+    <div>
+ 
+      <h2>User Login</h2>
+ 
+      <input
+        type="text"
+        placeholder="Enter Username"
+        onChange={(e) => setUsername(e.target.value)}
+      />
+ 
+      <br /><br />
+ 
+      <input
+        type="password"
+        placeholder="Enter Password"
+        onChange={(e) => setPassword(e.target.value)}
+      />
+ 
+      <br /><br />
+ 
+      <button onClick={validateLogin}>Login</button>
+ 
+      <h3>{message}</h3>
+ 
+    </div>
+  );
+}
+ 
+export default Login;
+
+4-)Node
+
+Code1-)
+const http = require('http');
+const fs = require('fs/promises');
+const path = require('path');
+
+http.createServer(async (req, res) => {
+    const urlObj = new URL(req.url, 'http://localhost');
+    const { pathname, searchParams } = urlObj;
+
+    res.setHeader('Content-Type', 'text/html');
+
+    if (pathname === '/file-lines') {
+        try {
+            const data = await fs.readFile(path.join(__dirname, 'demo.txt'), 'utf8');
+            const lines = data.split('\n')
+                .map((l, i) => `<li>Line ${i + 1}: ${l}</li>`).join('');
+
+            return res.end(`<h2>File Lines:</h2><ul>${lines}</ul>`);
+        } catch (e) {
+            res.statusCode = 404;
+            return res.end(e.message);
+        }
+    }
+
+    const a = parseFloat(searchParams.get('a'));
+    const b = parseFloat(searchParams.get('b'));
+
+    if (!isNaN(a) && !isNaN(b)) {
+        return res.end(`
+            <h2>Calculator</h2>
+            <p>a=${a}, b=${b}</p>
+            <ul>
+                <li>Add: ${a + b}</li>
+                <li>Sub: ${a - b}</li>
+                <li>Mul: ${a * b}</li>
+                <li>Div: ${b ? a / b : '∞'}</li>
+            </ul>
+        `);
+    }
+
+    res.end(`
+    <h1>Node Server</h1>
+    <p>URL: ${req.url}</p>
+    <p>Time: ${new Date().toLocaleString()}</p>
+    <a href="/?a=10&b=5">Calculator</a><br>
+    <a href="/file-lines">File Reader</a>
+`);
+
+}).listen(4000, () => console.log('http://localhost:4000'));
+
+
+Code2-)
+const http =require('http');
+const {URL} =require('url');
+
+const server=http.createServer((req,res)=>{
+    // create url obj 
+    const urlObj=new URL(req.url,'http://localhost');
+    const path=urlObj.pathname;
+    res.writeHead(200,{'Content-Type':'text/plain'});
+    res.end(`Requested Path: ${path}`);
+});
+server.listen(3000,()=>{
+    console.log("Server is running at http://localhost:3000")
+})
+
+Code 3-)
+const fs = require('fs/promises');
+const path = require('path');
+
+const targetFile = path.join(__dirname, 'test_fs_async.txt');
+
+
+async function runFsOps() {
+    try {
+
+        await fs.writeFile(targetFile, 'Hello, this is the async initial content.\n');
+
+        const content = await fs.readFile(targetFile, 'utf8');
+        console.log(content);
+
+        await fs.appendFile(targetFile, 'This async line was appended later.\n');
+
+        const updatedContent = await fs.readFile(targetFile, 'utf8');
+        console.log(updatedContent);
+
+
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+runFsOps();

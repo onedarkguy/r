@@ -1,0 +1,22 @@
+[
+    {
+        "username": "john_doe",
+        "comment": "This is very nice!"
+    },
+    {
+        "username": "jane_smith",
+        "comment": "This is very awesome!"
+    },
+    {
+        "username": "alex_brown",
+        "comment": "This is very great!"
+    },
+    {
+        "username": "sarah_k",
+        "comment": "Great post, thanks for sharing."
+    },
+    {
+        "username": "mike_r",
+        "comment": "Really helpful content."
+    }
+]

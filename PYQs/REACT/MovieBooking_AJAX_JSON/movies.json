@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Inception",
+        "rating": "8.8",
+        "duration": "2h 28min"
+    },
+    {
+        "title": "Interstellar",
+        "rating": "8.7",
+        "duration": "2h 49min"
+    },
+    {
+        "title": "The Dark Knight",
+        "rating": "9.0",
+        "duration": "2h 32min"
+    },
+    {
+        "title": "The Prestige",
+        "rating": "8.5",
+        "duration": "2h 10min"
+    }
+]

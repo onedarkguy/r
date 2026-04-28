@@ -1,0 +1,14 @@
+<students>
+    <student>
+        <name>Rahul</name>
+        <age>21</age>
+    </student>
+    <student>
+        <name>Priya</name>
+        <age>22</age>
+    </student>
+    <student>
+        <name>Aman</name>
+        <age>20</age>
+    </student>
+</students>

@@ -1,0 +1,27 @@
+[
+    {
+        "title": "The Great Gatsby",
+        "author": "F. Scott Fitzgerald",
+        "price": 450
+    },
+    {
+        "title": "The Alchemist",
+        "author": "Paulo Coelho",
+        "price": 550
+    },
+    {
+        "title": "Think and Grow Rich",
+        "author": "Napoleon Hill",
+        "price": 600
+    },
+    {
+        "title": "Deep Work",
+        "author": "Cal Newport",
+        "price": 750
+    },
+    {
+        "title": "Atomic Habits",
+        "author": "James Clear",
+        "price": 480
+    }
+]

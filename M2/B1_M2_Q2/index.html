@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON Student Example</title>
+</head>
+<body>
+
+<h2>Student Details</h2>
+
+<button onclick="displayStudents()">Show Students</button>
+
+<table border="1" id="table">
+    <tr>
+        <th>Name</th>
+        <th>Roll No</th>
+        <th>Math</th>
+        <th>Science</th>
+        <th>Grade</th>
+    </tr>
+</table>
+
+<br><br>
+
+<select id="studentSelect" onchange="showMathMarks()">
+    <option value="">Select Student</option>
+</select>
+
+<p id="result"></p>
+
+<script>
+
+// JSON Object
+var students = [
+    {
+        name: "Sumukh",
+        roll: 1,
+        subjects: { math: 85, science: 78 },
+        grade: "A"
+    },
+    {
+        name: "Priya",
+        roll: 2,
+        subjects: { math: 92, science: 88 },
+        grade: "A+"
+    },
+    {
+        name: "Aman",
+        roll: 3,
+        subjects: { math: 70, science: 65 },
+        grade: "B"
+    }
+];
+
+// Display table
+function displayStudents() {
+    var table = document.getElementById("table");
+
+    for (var i = 0; i < students.length; i++) {
+        var row = table.insertRow(-1);
+
+        row.insertCell(0).innerHTML = students[i].name;
+        row.insertCell(1).innerHTML = students[i].roll;
+        row.insertCell(2).innerHTML = students[i].subjects.math;
+        row.insertCell(3).innerHTML = students[i].subjects.science;
+        row.insertCell(4).innerHTML = students[i].grade;
+    }
+
+    // Fill dropdown
+    var select = document.getElementById("studentSelect");
+    for (var i = 0; i < students.length; i++) {
+        var option = document.createElement("option");
+        option.text = students[i].name;
+        option.value = i;
+        select.add(option);
+    }
+}
+
+// Show Math Marks
+function showMathMarks() {
+    var index = document.getElementById("studentSelect").value;
+
+    if (index !== "") {
+        var mathMarks = students[index].subjects.math;
+        document.getElementById("result").innerHTML =
+            "Math Marks: " + mathMarks;
+    }
+}
+</script>
+
+</body>
+</html>
