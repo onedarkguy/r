@@ -1,0 +1,45 @@
+const express = require('express');
+const { MongoClient } = require('mongodb');
+
+const app = express();
+const port = 3000;
+
+const url = 'mongodb://127.0.0.1:27017';
+const client = new MongoClient(url);
+const dbName = 'studentDB';
+
+async function main() {
+    try {   
+        await client.connect();
+        console.log('Connected to MongoDB');
+        const db = client.db(dbName);
+        const collection = db.collection('students');
+
+        // Route to insert and display student record
+        app.get('/insert', async (req, res) => {
+            try {
+                const newStudent = { id: 101, name: 'john doe', email: 'john@example.com', age: 21 };
+                const result = await collection.insertOne(newStudent);
+                const insertedRecord = await collection.findOne({ _id: result.insertedId });
+
+                res.status(201).json({
+                    message: 'Student record inserted successfully!',
+                    insertedRecord: insertedRecord
+                });
+            } catch (error) {
+                res.status(500).json({ error: 'Failed to insert student' });
+            }
+        });
+
+        app.get('/', (req, res) => {
+            res.send('<h1>Student System</h1><p><a href="/insert">Insert & View Student</a></p>');
+        });
+
+        app.listen(port, () => console.log(`Server running at http://localhost:${port}`));
+
+    } catch (err) {
+        console.error('Connection error:', err);
+    }
+}
+
+main();

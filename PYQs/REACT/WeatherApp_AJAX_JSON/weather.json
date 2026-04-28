@@ -1,0 +1,27 @@
+[
+    {
+        "temperature":"25C",
+        "humidity":"60%",
+        "condition":"Sunny"
+    },
+    {
+        "temperature":"26C",
+        "humidity":"60%",
+        "condition":"Cloudy"
+    },
+    {
+        "temperature":"26C",
+        "humidity":"60%",
+        "condition":"Hazy"
+    },
+    {
+        "temperature":"23C",
+        "humidity":"60%",
+        "condition":"Rainy"
+    },
+    {
+        "temperature":"22C",
+        "humidity":"60%",
+        "condition":"Foggy"
+    }
+]

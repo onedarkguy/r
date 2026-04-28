@@ -1,0 +1,80 @@
+const express = require('express');
+const mysql = require('mysql2/promise');
+
+const app = express();
+app.use(express.json()); // To parse JSON request bodies
+
+const config = {
+    host: 'localhost',
+    user: 'root',
+    password: 'Asus@260422',
+    database: 'studentDB'
+};
+
+async function initDB() {
+    const connection = await mysql.createConnection({
+        host: config.host,
+        user: config.user,
+        password: config.password
+    });
+    await connection.query('CREATE DATABASE IF NOT EXISTS studentDB');
+    await connection.query('USE studentDB');
+    await connection.query(`
+        CREATE TABLE IF NOT EXISTS student (
+            student_id INT PRIMARY KEY,
+            student_name VARCHAR(100)
+        )
+    `);
+    await connection.end();
+}
+
+// 1. POST: Insert a new student and display all records
+app.post('/students', async (req, res) => {
+    try {
+        const { student_id, student_name } = req.body;
+        const connection = await mysql.createConnection(config);
+        
+        // Insert record
+        await connection.execute(
+            'INSERT INTO student (student_id, student_name) VALUES (?, ?)',
+            [student_id, student_name]
+        );
+
+        // Fetch all records
+        const [rows] = await connection.execute('SELECT * FROM student');
+        
+        await connection.end();
+        res.status(201).json({
+            message: 'Student inserted successfully!',
+            allStudents: rows
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// 2. DELETE: Delete the student record with student_id of 100
+app.delete('/students/100', async (req, res) => {
+    try {
+        const connection = await mysql.createConnection(config);
+        
+        const [result] = await connection.execute(
+            'DELETE FROM student WHERE student_id = 100'
+        );
+
+        await connection.end();
+        res.json({
+            message: 'Operation completed',
+            affectedRows: result.affectedRows
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+const port = 5000;
+initDB().then(() => {
+    app.listen(port, () => {
+        console.log(`Student MySQL server running at http://localhost:${port}`);
+    });
+}).catch(err => console.error('DB Init Error:', err));
